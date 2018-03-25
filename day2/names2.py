@@ -7,4 +7,6 @@ names = ['jmz',[1,23,3],'qqc']
 names2 = names
 names[0] = 'jjj'
 
+
+
 print(names2)
