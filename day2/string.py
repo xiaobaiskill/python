@@ -76,4 +76,16 @@ print(' jmz-666 '.replace('6','9',2))              # 6 替换成9 只替换2个
 
 print('jmz-666-dsz'.rfind(''))                    # 返回最右边的 查找到的下标   没找到为 -1
 
+print('xiao bai skill'.split('b'))                   # 将字符串以切割成列表。 默认是以' '切割
 
+print('xiao bai\r skill'.splitlines())               # 以换行做切割   看不出有什么作用
+
+print('My Name IS XIAOBAISKILL'.swapcase())          # 大小写身份转化
+
+print('my name is xiaobaiskill'.title())            #单词首字母大写
+
+print('my NAme Is Xiaobaiskill'.upper())            # 小写转大写
+
+print('my NAme Is Xiaobaiskill'.lower())            # 大写转小写
+
+print('my name is xiaobaiskill'.zfill(50))          # 自动补全前面为0
