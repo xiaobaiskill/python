@@ -4,7 +4,7 @@
 
 '''
 # 第一版
-# db.txt  用于存储锁定的用户
+# user_db1.txt  用于存储锁定的用户
 
 users = {
     'jmz':{'passwd':'123'}
@@ -20,7 +20,7 @@ while tlag:
         print('登陆用户不存在')
         break
 
-    with open('user_db.txt','r',encoding='utf-8') as f:
+    with open('user_db1.txt','r',encoding='utf-8') as f:
         user_data = f.read().strip().split('\n')
         if name in user_data:
             print('用户已锁')
@@ -37,21 +37,16 @@ while tlag:
             if count >=3 :
                 tlag = False
                 print('用户锁定')
-                with open('user_db.txt','a',encoding='utf-8') as lock_f:
+                with open('user_db1.txt','a',encoding='utf-8') as lock_f:
                     lock_f.write(name+'\n')
-
 '''
-
-
-
-# 第二版
 
 
 
 
 
 '''
-#  第三版
+#  第二版
 # 无论程序执行多少次，用户只要连续输入三次错误，用户就会被锁住。
 import json
 

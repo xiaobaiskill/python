@@ -1,5 +1,0 @@
-{
-"jmz": {"passwd": "123", "count": 0}
-,"qqc": {"passwd": "aaa", "count": 0}
-, "wh": {"passwd": "bbb", "count": 0}
-}

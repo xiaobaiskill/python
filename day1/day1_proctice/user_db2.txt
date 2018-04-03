@@ -1,1 +1,1 @@
-{"jmz": {"passwd": "123", "count": 3}, "aaa": {"passwd": "aaa", "count": 3}, "bbb": {"passwd": "bbb", "count": 0}}
+{"jmz": {"passwd": "123", "count": 0}, "aaa": {"passwd": "aaa", "count": 0}, "bbb": {"passwd": "bbb", "count": 0}}
