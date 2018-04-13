@@ -30,7 +30,7 @@ print(list)
 
 #-----------------改---------------
 print('改'.center(50,'-'))
-list[1] = 'jmzjmzjmzjmz'     # 改下标为1的值
+list[1] = 'jmzjmzjmzjmz'     # 改下标为1的值       这个没有添加能力
 print(list)
 
 
