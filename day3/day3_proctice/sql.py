@@ -23,20 +23,31 @@ def sql_parse(sql):
     :param sql语句 :
     :return: 返回 指定语句类型
     '''
-    sql_dict={
+    sql_type={
         'insert':parse_insert,
         'delete':parse_delete,
         'update':parse_update,
         'select':parse_select
     }
     sql_list = sql.split(' ')
-    if sql_list[0] in sql_dict.keys():
-        return sql_dict[sql_list[0]](sql)
+    if sql_list[0] in sql_type.keys():
+        return sql_type[sql_list[0]](sql_list)
     else:
         return
 
-def parse_insert(sql):
-    result = re.match('insert\s+?into\s+?(\w+?)',sql)
+def parse_insert(sql_list):
+    sql_dict = {
+        'table':'',
+        'keys':[],
+        'values':{}
+    }
+    if 'into' in sql_list:
+        result = re.match('(\w+)\s*?(\(.+\))?',sql_list[sql_list.index('into')+1])
+        if result:
+            sql_dict['table'] = result.group(1)
+            if result.group(2):
+                sql_dict['keys']=result.group(2).strip('() ').split(',')
+    if 'values' in 
     return 'insert'
     pass
 def parse_delete(sql):
