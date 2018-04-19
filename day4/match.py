@@ -36,10 +36,22 @@ import re
 # num = {'a':1,'b':2}
 # print(num['c'] if 'c' in num.keys() else '' )
 
-sql = '   name = jmz  '
-# result = re.match('\s*?(\w+)\s*?',sql)
-result = re.match('\s*?(\w+)\s*?(>|>=|<|>=|=|like)\s*?(\w+)',sql)
-if result:
-    print(result.groups())
-else:
-    print('no')
+# sql = '   name="jmz" and id>2  '
+# # result = re.match('\s*?(\w+)\s*?',sql)
+# result = re.match('\s*?(\w+)\s*?(>|>=|<|>=|=|like)\s*?(\w+)',sql)
+# if result:
+#     print(result.groups())
+# else:
+#     print('no')
+#
+
+
+# dict = {'name':'dsada','dsa':'dsad'}
+# if dict.get('dsad'):
+#     for a in dict.get('dsad'):
+#         print(a)
+
+
+
+
+

@@ -18,7 +18,7 @@ print()
 # ----------增--------
 print('增'.center(50,'-'))
 info['sex'] ='nan'                       # 修改亦添加
-info.setdefault('obj','SH')              # setdefault  存在添加 不存在不添加
+info.setdefault('obj','SH')              # setdefault  不存在添加 存在不添加
 info.setdefault('name','jjj')
 print(info)
 

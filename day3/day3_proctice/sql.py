@@ -4,18 +4,19 @@
 
 # insert
 # insert [into] <表名> (列名) values (列值)
-#   insert into table values('金明智',23,'182551832632','开发'),('jmz',23,'18326323334','开发')
-#   insert into table('name','phone',dept) values('aaa','182521832632','开发'),('jmz','13326323334','开发')
+#   insert into emp values('金明智',23,'182551832632','开发'),('jmz',23,'18326323334','开发')
+#   insert into emp('name','phone',dept) values('aaa','182521832632','开发'),('jmz','13326323334','开发')
 
 #delete
 #delete from <表名> [where <删除条件>]
-#   delete from table where name =2
-#   delete from table where name =2 and id =2
-
+#   delete from emp where name =2
+#   delete from emp where name =2 and id =2
+#   delete from emp where name like '金明智' and age =23 or  staff_id =1
 
 
 # update
 # update <表名> set <列名=更新值> [where <更新条件>]
+# update emp set name='jmz' where staff_id =2
 
 #select
 # select <列名> from <表名> [where <查询条件表达试>] [order by <排序的列名>[asc或desc]] [limit <取值>]
@@ -37,16 +38,17 @@ def sql_parse(sql):
     }
     sql_list = sql.split(' ')
     if sql_list[0] in sql_type.keys():
-        return sql_type[sql_list[0]](sql_list,sql)
+        return sql_type[sql_list[0]](sql)
 
 
-def parse_insert(sql_list,sql):
+def parse_insert(sql):
     sql_dict = {
         'type':'insert',
         'table':'',
         'keys':[],
         'values':[]
     }
+    sql_list = sql.split(' ')
     if 'into' in sql_list:
         result = re.match('(\w+)\s*?(\(.+\))?',sql_list[sql_list.index('into')+1])
         if result:
@@ -73,16 +75,15 @@ def parse_insert(sql_list,sql):
         sql_dict['values'].append(values)
     return sql_dict
 
-def parse_delete(sql_list,sql):
+def parse_delete(sql):
     sql_dict = {
         'type':'delete',
         'table':'',
         'where':[]
     }
     if 'from' in sql:
-        result = re.match('delete\s+?from\s+?(\w+)(\s+?where(.*))?',sql)
+        result = re.match('\s*?delete\s+?from\s+?(\w+)(\s+?where(.*))?',sql)
         if result :
-            print(result.groups())
             sql_dict['table'] =result.group(1)
             if result.group(3):
                 result_where = where_parse(result.group(3))
@@ -93,7 +94,21 @@ def parse_delete(sql_list,sql):
         return sql_dict
 
 def parse_update(sql):
-    return 'update'
+    sql_dict = {
+        'type':'update',
+        'table':'',
+        'values':{},
+        'where':[]
+    }
+    result = re.match('\s*?update(.*?)set(.*?)(where(.*))?',sql)
+    print(result.groups())
+    if result:
+        sql_dict['table'] =result.group(1)
+        if result.group(2):
+            pass
+        else:
+            return
+
     pass
 
 def parse_select(sql):
@@ -105,26 +120,26 @@ def where_parse(sql_where):
     '''
     where 的解析
     :param sql_where: where 后面的sql 语句
-    :return: {'and':[{}]}  or {'or':[{},{},{}]}
+    :return: {'and':[{}]}  {'or':[{},{},{}]}
     '''
     def one_parse_where(sql_one_where):
-        result = re.match('\s*?(\w+)\s*?(>|>=|<|>=|=|like)\s*?(\w+)',sql_one_where)
+        result = re.match('\s*?(\w+)\s*?(>|<=|<|>=|=|like)\s*?[\'|\"]?(\w+)[\'|\"]?',sql_one_where)
         if result :
             return {result.group(1):[result.group(3),result.group(2)]}
     def and_where_parse (and_sql_where):
-        and_where = []
+        and_where = {}
         if 'and' in and_sql_where.strip('() '):
             and_sql_where_list = and_sql_where.split('and')
             for and_sql_where_value in and_sql_where_list:
                 result_one_sql = one_parse_where(and_sql_where_value.strip('() '))
                 if result_one_sql:
-                    and_where.append(result_one_sql)
+                    and_where.update(result_one_sql)
                 else:
                     return
         else:
             result_one_sql = one_parse_where(and_sql_where.strip('() '))
             if result_one_sql:
-                and_where.append(result_one_sql)
+                and_where.update(result_one_sql)
             else:
                 return
         return and_where
@@ -220,13 +235,20 @@ def delete_action(command):
     '''
     if command['table']:
         if command['where']:
-            pass
-            # with open(command['table'],'r',encoding='utf-8') as f:
-
+            with open(command['table'],'r',encoding='utf-8') as f:
+                for line in f:
+                    if not where_action(command['where'],line):
+                        with open('%s.swap'%(command['table']),'a',encoding='utf-8') as f_new:
+                            f_new.write(line)
+            os.remove(command['table'])
+            os.rename('%s.swap'%command['table'],command['table'])
         else:
             os.remove(command['table'])
-            os.mknod(command['table'])
-
+            f=open(command['table'],'w',encoding='utf-8')
+            f.close()
+        print('delete successful')
+    else:
+        print('无可删除对象')
 
 def select_action(commnd):
     pass
@@ -234,6 +256,52 @@ def select_action(commnd):
 def update_action(command):
     pass
 
+def where_action(where,line):
+    '''
+    条件是否成立
+    :param where:  {'and':[{key:[value,operation]}]}  {'or':[{},{},{}]}
+    :param line: 1,姬建明,25,15201541043,运维,2013-11-01
+    :return: boolean
+    '''
+    line_list = line.split(',')
+    line_dict = {
+        'staff_id': line_list[0],
+        'name': line_list[1],
+        'age': line_list[2],
+        'phone': line_list[3],
+        'dept': line_list[4]
+    }
+    if 'or' in where.keys():
+        for key in where['or']:
+            if and_where_action(key,line_dict):
+                return True
+    else:
+        if and_where_action(where['and'], line_dict):
+            return True
+    return False
+
+def and_where_action(and_where_dict,line_dict):
+    for k,v in and_where_dict.items():
+        if k not in line_dict.keys():
+            return False
+        if not operation(k,v,line_dict):
+            return False
+    return True
+
+def operation(key,value,line_dict):
+    if value[1] == '>=':
+        return int(line_dict[key]) >= int(value[0])
+    elif value[1] == '>':
+        return int(line_dict[key]) < int(value[0])
+    elif value[1] == '<=':
+        return int(line_dict[key]) <= int(value[0])
+    elif value[1] == '<':
+        return int(line_dict[key]) < int(value[0])
+    elif value[1] == '=':
+        return line_dict[key] == value[0]
+    elif value[1] == 'like':
+        return value[0] in line_dict[key]
+    return False
 
 while True:
     sql = input('sql>>')
