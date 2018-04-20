@@ -2,8 +2,14 @@
 # -*- coding:utf-8 -*-
 # Author Jmz
 
+
+# 字段仅存在
+# staff_id,name.age,phone,dept,enroll_date
+
+
 # insert
 # insert [into] <表名> (列名) values (列值)
+#   insert into emp(name,age,phone) value('jmz11111',23,182553342632)
 #   insert into emp values('金明智',23,'182551832632','开发'),('jmz',23,'18326323334','开发')
 #   insert into emp('name','phone',dept) values('aaa','182521832632','开发'),('jmz','13326323334','开发')
 
@@ -16,10 +22,16 @@
 
 # update
 # update <表名> set <列名=更新值> [where <更新条件>]
-# update emp set name='jmz' where staff_id =2
+#   update emp set name = 'jmz1111' where staff_id =1
+#   update emp set name=jjj,age=23 where staff_id<5 or name like jmz and staff_id>25
+
 
 #select
 # select <列名> from <表名> [where <查询条件表达试>] [order by <排序的列名>[asc或desc]] [limit <取值>]
+#   select * from emp where staff_id >4 and name like 'jmz'
+#   select * from emp where staff_id>25
+#   select name,age,phone from emp where staff_id >4 and name like 'jmz'
+
 
 
 import re,time,os
@@ -100,21 +112,47 @@ def parse_update(sql):
         'values':{},
         'where':[]
     }
-    result = re.match('\s*?update(.*?)set(.*?)(where(.*))?',sql)
-    print(result.groups())
+    result = re.match('\s*?update\s+?(\w+)\s+?set\s+?(.*?)\s*?(where(.*))?$',sql)
     if result:
         sql_dict['table'] =result.group(1)
         if result.group(2):
-            pass
+            values = result.group(2);
+            values_list=values.split(',')
+            for value in values_list:
+                key_value=value.split('=')
+                if len(key_value) ==2:
+                    kye_values={key_value[0].strip(' \'\"'):key_value[1].strip(' \'\"')}
+                    sql_dict['values'].update(kye_values)
+                else:
+                    return
         else:
             return
-
-    pass
+        if result.group(4):
+            sql_dict['where'] = where_parse(result.group(4))
+    return sql_dict
 
 def parse_select(sql):
-    return 'select'
-    pass
-
+    sql_dict = {
+        'type': 'select',
+        'table': '',
+        'filed': {},
+        'where': []
+    }
+    result = re.match('\s*?select\s+?(.*)\s+?from\s+?(.*?)\s*?(where(.*))?$', sql)
+    if result:
+        if result.group(2):
+            sql_dict['table'] = result.group(2)
+        else:
+            return
+        if result.group(1):
+            sql_dict['filed'] = result.group(1).split(',')
+        else:
+            return
+        if result.group(4):
+            sql_dict['where'] = where_parse(result.group(4))
+    else:
+        return
+    return sql_dict
 
 def where_parse(sql_where):
     '''
@@ -205,17 +243,19 @@ def insert_action(command):
                         if key in ['name','age','phone','dept']:
                             key_values[key] = values[i]
                         i+=1
+                    max_id =0
                     with open(command['table'],'r',encoding='utf-8') as f:
                         for line in f:
                             line_values = line.split(',')
                             if 'phone' in key_values.keys():
                                 if key_values['phone']  == line_values[3]:
                                     print('phone:%s 已存在不可添加'%key_values['phone'])
-                                    break
+                                    return
                             else:
                                 print('缺少唯一索引：phone')
                                 return
-                            max_id = int(line_values[0])
+                            if max_id < int(line_values[0]):
+                                max_id = int(line_values[0])
                     with open(command['table'], 'a', encoding='utf-8') as f_add:
                         f_add.write('%d,%s,%s,%s,%s,%s\n'%(max_id+1,key_values['name'] if 'name' in key_values.keys() else '',\
                                                          key_values['age'] if 'age' in key_values.keys() else '', \
@@ -250,11 +290,90 @@ def delete_action(command):
     else:
         print('无可删除对象')
 
-def select_action(commnd):
-    pass
-
 def update_action(command):
-    pass
+    '''
+    修改操作
+    :param comand:
+    :return:
+    '''
+    if command['table']:
+        if command['values']:
+            with open(command['table'],'r',encoding='utf-8') as f:
+                for line in f:
+                    line_list = line.split(',')
+                    line_dict = {
+                        'staff_id': line_list[0],
+                        'name': line_list[1],
+                        'age': line_list[2],
+                        'phone': line_list[3],
+                        'dept': line_list[4],
+                        'enroll_date': line_list[5].strip()
+                    }
+                    for k,v in command['values'].items():
+                        if k in line_dict.keys():
+                            if (command['where'] and where_action(command['where'],line)) or not command['where']:
+                                line_dict[k]=v
+                        else:
+                            print('%s:表字段不存在'%k)
+                            return
+                    with open('%s.swap'%(command['table']),'a',encoding='utf-8') as f_new:
+                        f_new.write('%s\n'%','.join(line_dict.values()))
+
+            os.remove(command['table'])
+            os.rename('%s.swap'%command['table'],command['table'])
+
+            print('update successful')
+        else:
+            print('无可修改数据')
+    else:
+        print('无可修改对象')
+
+def select_action(command):
+    '''
+    查操作
+    :param comand:
+    :return:
+    '''
+    if command['table']:
+        with open(command['table'], 'r', encoding='utf-8') as f:
+            for line in f:
+                line_list = line.split(',')
+                line_dict = {
+                    'staff_id': line_list[0],
+                    'name': line_list[1],
+                    'age': line_list[2],
+                    'phone': line_list[3],
+                    'dept': line_list[4],
+                    'enroll_date': line_list[5].strip()
+                }
+                if command['where']:
+                    if where_action(command['where'], line):
+                        if command['filed'][0] == '*':
+                            print(line.strip())
+                        else:
+                            filed_values = []
+                            for filed in command['filed']:
+                                if filed in line_dict.keys():
+                                    filed_values.append(line_dict[filed])
+                                else:
+                                    print('%s:字段不存在'%filed)
+                                    return
+                            print(','.join( filed_values))
+                else:
+                    if command['filed'][0] == '*':
+                        print(line.strip())
+                    else:
+                        filed_values = []
+                        for filed in command['filed']:
+                            if filed in line_dict.keys():
+                                filed_values.append(line_dict[filed])
+                            else:
+                                print('%s:字段不存在' % filed)
+                                return
+                        print(','.join(filed_values))
+        print('select successful')
+    else:
+        print('无可查找对象')
 
 def where_action(where,line):
     '''
@@ -292,7 +411,7 @@ def operation(key,value,line_dict):
     if value[1] == '>=':
         return int(line_dict[key]) >= int(value[0])
     elif value[1] == '>':
-        return int(line_dict[key]) < int(value[0])
+        return int(line_dict[key]) > int(value[0])
     elif value[1] == '<=':
         return int(line_dict[key]) <= int(value[0])
     elif value[1] == '<':
@@ -306,10 +425,15 @@ def operation(key,value,line_dict):
 while True:
     sql = input('sql>>')
     sql = sql.strip().lower()
+    if sql =='q':
+        print('sql退出')
+        break
     sql_parse_result = sql_parse(sql)
     if sql_parse_result:
-        print(sql_parse_result)
-        sql_result = sql_action(sql_parse_result)
+        if os.path.exists(sql_parse_result['table']):
+            sql_result = sql_action(sql_parse_result)
+        else:
+            print('数据库操作对象不存在')
     else:
         print('SQL语句有误')
 

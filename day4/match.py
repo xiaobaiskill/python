@@ -46,12 +46,25 @@ import re
 #
 
 
+# sql = 'update table set name =sdad,id=2 where id =2 and name =jmz'
+# result = re.match('\s*?update\s+?(\w+)\s+?set\s+?(.*?)\s*?(where(.*))?$', sql)
+# print(result.groups())
+
+
+
+# sql ='select name,age from emp '
+# result = re.match('\s*?select\s+?(.*)\s+?from\s+?(.*?)\s*?(where(.*))?$',sql)
+# print(result.groups())
+
+
+
+
 # dict = {'name':'dsada','dsa':'dsad'}
 # if dict.get('dsad'):
 #     for a in dict.get('dsad'):
 #         print(a)
 
 
-
-
+k='jmz'
+print('%s:表字段不存在'%k)
 
