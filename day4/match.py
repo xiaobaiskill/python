@@ -65,6 +65,6 @@ import re
 #         print(a)
 
 
-k='jmz'
-print('%s:表字段不存在'%k)
+# k='jmz'
+# print('%s:表字段不存在'%k)
 
