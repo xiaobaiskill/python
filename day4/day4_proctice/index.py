@@ -4,22 +4,10 @@
 
 #user数据类型：     id,用户名,密码,状态,金额
 
-import time,os
+import os
 LOGIN_SUCCESS=[]   # 多账号使用
 CURRENT_USER=''    # 当前账号使用
-POUNDAGE = 0.05
-
-def log(fun):
-    '''
-    ATM 日志记录
-    :param fun:
-    :return:
-    '''
-    def wapper(*args,**kwargs):
-        pass
-    return wapper
-
-
+POUNDAGE = 0.05    # 提现汇率
 
 
 def echo_red(context):
