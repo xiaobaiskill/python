@@ -3,8 +3,11 @@
 # Author Jmz
 
 
-from config import config
+from conf import config
 
+shopping_chooise = [
+    ['']
+]
 def run():
     pass
 

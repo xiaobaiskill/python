@@ -1,0 +1,9 @@
+2018-05-03 17:20:36 atm - INFO - account:1234  action:cat_money
+2018-05-03 17:20:40 atm - INFO - account:1234  action:cat_atm_log
+2018-05-03 17:20:42 atm - INFO - account:1234  action:cat_atm_log
+2018-05-03 17:20:43 atm - INFO - account:1234  action:cat_atm_log
+2018-05-03 17:20:44 atm - INFO - account:1234  action:cat_atm_log
+2018-05-03 17:20:48 atm - INFO - account:1234  action:cat_atm_log
+2018-05-03 17:20:51 atm - INFO - account:1234  action:cat_atm_log
+2018-05-03 17:25:20 atm - INFO - account:1234  action:cat_money
+2018-05-03 17:25:33 atm - INFO - account:1234  action:cat_atm_log

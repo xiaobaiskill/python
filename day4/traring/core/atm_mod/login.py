@@ -2,7 +2,8 @@
 # -*- coding:utf-8 -*-
 # Author Jmz
 
-from config import config
+
+from conf import config
 
 def login(user:str,pwd:str):
     pass
