@@ -23,7 +23,7 @@ LOG_RECOED = {
 LOGIN_USER ={
     'user':None,
     'pwd':None,
-    'money':None,   # 卡的金额
+    'money':None,   # 卡的额度
     'cost':None,    # 已消费额度
     'status':False  # 状态
 }

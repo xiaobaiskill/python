@@ -20,14 +20,14 @@ atm_chooise = [
     ['查看atm操作记录',logger.cat_atm_log]
 ]
 
-@auth.auth(config.AUTH_INFO['type'])
+@auth.auth(config.DB_INFO['type'])
 def run():
     while True:
         k =0
         for v in atm_chooise:
             print(k,v[0])
             k+=1
-        chooise = input('请输入你的选择:').strip()
+        chooise = input('请输入你的选择(q 退出):').strip()
         if chooise.isdigit() and int(chooise) < k:
             atm_chooise[int(chooise)][1]()
         elif chooise == 'q':

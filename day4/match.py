@@ -68,3 +68,8 @@ import re
 # k='jmz'
 # print('%s:表字段不存在'%k)
 
+res = -1.33
+print(res+1.38,type(res))
+
+res1 = 1.33
+print(-res1,type(-res1))

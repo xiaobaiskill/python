@@ -18,6 +18,7 @@ def update(account,data):
     return type.update(account,data)
 
 def delete(account):
+
     return type.delete(account)
 
 def insert(account,data):

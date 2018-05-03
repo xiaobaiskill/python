@@ -33,10 +33,11 @@ def custom_record(account,action:str,amount:float,interest:float):
     :return:
     '''
     # 2018-05-02 14:21:34,840 - transaction - INFO - account:1234   action:repay    amount:600.0   interest:0.0
-    content = '%s account - INFO - account:%s  action:%s  amount:%s  intersst:%f' % (
+    content = '%s account - INFO - account:%s  action:%s  amount:%f  intersst:%f' % (
         time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), account, action,amount,interest)
     log_record(content, '%s/%s.%s' % (
                 config.LOG_RECOED['path'], account, config.LOG_RECOED['account']))
+    common_func.echo(content)
     return True
 
 # 日志记录

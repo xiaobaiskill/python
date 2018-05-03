@@ -10,6 +10,10 @@ account ={
     'cost':'0',    # 已消费额度
     'status':'1'  # 状态
 }
-with open('account/1234.json','w',encoding='utf-8') as f:
+with open('accounts/1234.json','w',encoding='utf-8') as f:
     f.write(json.dumps(account))
+
+with open('accounts/1234.json','r',encoding='utf-8') as f:
+    res = json.load(f)
+    print(res,type(res))
 
