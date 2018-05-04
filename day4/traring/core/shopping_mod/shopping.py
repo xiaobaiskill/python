@@ -52,3 +52,4 @@ def buy_good():
         res = accounts.pay(float(good_total))
         if res:
             select_good_list.clear()
+            common_func.echo('购买成功')

@@ -12,9 +12,9 @@ import core.logger as logger
 import core.common_func as common_func
 
 atm_chooise = [
-    ['登录',login.login],
+    #['登录',login.login],
     ['提现',accounts.withdraw],
-    ['转账',accounts.transfer_accounts],
+    #['转账',accounts.transfer_accounts],
     ['查看金额',accounts.cat_money],
     ['查看消费流水',logger.cat_account_log],
     ['查看atm操作记录',logger.cat_atm_log]
