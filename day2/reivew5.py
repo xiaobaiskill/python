@@ -15,6 +15,8 @@
 pythons = {'jmz','qqc','wh','jj','kk','cc'}
 linuxs = {'cc','jmz','dd','aa','ff','wh'}
 
+
+
 print(pythons | linuxs)       # 取合集
 print(pythons & linuxs)       # 取交集
 print(pythons - linuxs)       # 取pythons 对于 linux 的差集
