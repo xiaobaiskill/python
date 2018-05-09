@@ -72,5 +72,5 @@ print()
 # ----------删--------
 print('删'.center(50,'-'))
 print(info.pop('name'))      # 推出并删除
-print(info.popitem())           # 为什么删除的是最后一位呢？  不是说随机删吗
+print(info.popitem())           #随机删吗
 print(info)
