@@ -28,7 +28,7 @@ def auth_handle(account:str,pwd:str):
     res = handle.select(account)
     if res and res['pwd'] == pwd:
         if res['status'] != '1':
-            common_func.echo('卡号冻结')
+            common_func.echo('卡号已被冻结')
             return False
         else:
             common_func.echo('登陆成功')

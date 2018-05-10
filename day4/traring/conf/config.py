@@ -31,9 +31,11 @@ LOGIN_USER ={
 # 手续费
 TRANSACTION_TYPE = {
     'pay':{ 'interest':0},                      # 支付
-    'withdraw':{ 'interest':0.05},             # 提现
-    'transfer_accounts':{ 'interest':0},      # 转账
+    'withdraw':{ 'interest':0.05},              # 提现
+    'transfer_accounts':{ 'interest':0},        # 转账
+    'repayment':{'interest':0},                 # 还款
 }
+
 
 
 

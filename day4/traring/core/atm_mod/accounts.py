@@ -42,12 +42,51 @@ def withdraw():
 # 转账
 @logger.logger('transfer_accounts')
 def transfer_accounts():
-    pass
+    while True:
+        account = input('account( or q exit):').strip()
+        money = input('transfer money( or q exit):').strip()
+        if account =='q' or money == 'q':
+            return False
+        account_user = handle.select(account)
+        if not account_user:
+            common_func.echo('转账用户不存在')
+            continue
+        is_money = money.replace('.','').isdigit()
+        if account_user['account'] == config.LOGIN_USER['account']:
+            common_func.echo('转账用户不能是自己')
+            continue
+        if is_money:
+            amount = float(money)
+            intersst = amount * config.TRANSACTION_TYPE['transfer_accounts']['interest']
+            config.LOGIN_USER['cost'] = float(config.LOGIN_USER['cost']) + (amount + intersst)
+            config.LOGIN_USER['money'] = float(config.LOGIN_USER['money']) - (amount + intersst)
+
+            account_update_cost(config.LOGIN_USER['account'], 'transfer_accounts', amount, intersst)
+            account_update_cost(account_user['account'], 'transfer_accounts', -amount, 0.0)
+            common_func.echo('转账成功')
+            return True
+        else:
+            common_func.echo('请输入正确的金额')
+            continue
 
 # 还款
 @logger.logger('repayment')
 def repayment():
-    pass
+    common_func.echo('您当前欠款 %s元'%config.LOGIN_USER['cost'])
+    while True:
+        amount = input('money repayment:').strip()
+        is_money = amount.replace('.','').isdigit()
+        if is_money:
+            amount = float(amount)
+            intersst = amount * config.TRANSACTION_TYPE['repayment']['interest']
+            config.LOGIN_USER['cost'] = float(config.LOGIN_USER['cost']) - (amount + intersst)
+            config.LOGIN_USER['money'] = float(config.LOGIN_USER['money']) + (amount + intersst)
+            account_update_cost(config.LOGIN_USER['account'], 'repayment', -amount, float(intersst))
+            common_func.echo('还款成功')
+            return True
+        else:
+            common_func.echo('请输入正确的金额')
+            continue
 
 
 # 现金变化 消费操作

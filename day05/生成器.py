@@ -73,6 +73,7 @@
 
 
 # 作业
+
 # 写一个取基数的操作
 # def jishu():
 #     num = 1
@@ -83,6 +84,7 @@
 #             while count < num - 1:
 #                 if num%count==0:
 #                     is_true = False
+#                     break
 #                 count +=1
 #         if is_true:
 #             yield num
@@ -96,6 +98,57 @@
 # print(next(num))
 
 
-# 记录所有的
+# 咖啡3元，糖0.5元 牛奶2元，平时咖啡单点的，活动需要，需加糖与牛奶捆绑销售
+
+# def sugar(func):
+#     def wrapper(*args,**kwargs):
+#         res = func(*args,**kwargs)
+#         res += 0.5
+#         return res
+#     return wrapper
+#
+# def milk(func):
+#     def wrapper(*args,**kwargs):
+#         res = func(*args,**kwargs)
+#         res += 2.5
+#         return res
+#     return wrapper
+#
+# @sugar
+# @milk
+# def coffee():
+#     return 3
+#
+#
+# print(coffee())
 
 
+
+# 用户购买商品，以邮箱或短信的形式通知
+#
+# def notice(type='email'):
+#     def shopping(func):
+#         def wrapper(*args,**kwargs):
+#             if type == 'email':
+#                 print('邮箱通知成功')
+#             elif type == 'sms':
+#                 print('短信通知成功')
+#             return func(*args,**kwargs)
+#         return wrapper
+#     return shopping
+#
+#
+# @notice('sms')
+# def shopping(good):
+#     print('成功购买了%s商品'%good)
+#
+# shopping('电脑')
+
+
+
+
+
+
+
+
+#

@@ -4,17 +4,18 @@
 
 from core import auth
 from conf import config
-from core.atm_mod import login
+# from core.atm_mod import login
 from core.atm_mod import accounts
 from core import logger
 
-import core.logger as logger
+
 import core.common_func as common_func
 
 atm_chooise = [
     #['登录',login.login],
     ['提现',accounts.withdraw],
-    #['转账',accounts.transfer_accounts],
+    ['转账',accounts.transfer_accounts],
+    ['还款',accounts.repayment],
     ['查看金额',accounts.cat_money],
     ['查看消费流水',logger.cat_account_log],
     ['查看atm操作记录',logger.cat_atm_log]
