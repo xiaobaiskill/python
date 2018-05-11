@@ -74,7 +74,9 @@ def transfer_accounts():
 def repayment():
     common_func.echo('您当前欠款 %s元'%config.LOGIN_USER['cost'])
     while True:
-        amount = input('money repayment:').strip()
+        amount = input('money repayment(or q exit):').strip()
+        if amount == 'q':
+            return False
         is_money = amount.replace('.','').isdigit()
         if is_money:
             amount = float(amount)

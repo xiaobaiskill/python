@@ -17,3 +17,8 @@
 2018-05-10 21:40:16 atm - INFO - account:1234  action:cat_money
 2018-05-10 21:40:35 atm - INFO - account:1234  action:cat_atm_log
 2018-05-10 21:40:37 atm - INFO - account:1234  action:cat_account_log
+2018-05-11 11:21:19 atm - INFO - account:1234  action:transfer_accounts
+2018-05-11 11:22:39 atm - INFO - account:1234  action:cat_account_log
+2018-05-11 11:22:49 atm - INFO - account:1234  action:repayment
+2018-05-11 11:23:00 atm - INFO - account:1234  action:withdraw
+2018-05-11 11:23:11 atm - INFO - account:1234  action:repayment

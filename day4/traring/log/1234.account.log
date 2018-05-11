@@ -4,3 +4,8 @@
 2018-05-10 21:30:26 account - INFO - account:1234  action:transfer_accounts  amount:-123.000000  intersst:0.000000
 2018-05-10 21:32:14 account - INFO - account:1234  action:transfer_accounts  amount:123.000000  intersst:0.000000
 2018-05-10 21:40:10 account - INFO - account:1234  action:transfer_accounts  amount:1000.000000  intersst:0.000000
+2018-05-11 11:21:19 account - INFO - account:1234  action:transfer_accounts  amount:-1000.000000  intersst:0.000000
+2018-05-11 11:22:03 account - INFO - account:1234  action:pay  amount:-703.000000  intersst:0.000000
+2018-05-11 11:22:49 account - INFO - account:1234  action:repayment  amount:1703.000000  intersst:0.000000
+2018-05-11 11:23:00 account - INFO - account:1234  action:withdraw  amount:-1000.000000  intersst:50.000000
+2018-05-11 11:23:11 account - INFO - account:1234  action:repayment  amount:1050.000000  intersst:0.000000
