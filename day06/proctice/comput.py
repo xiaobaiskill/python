@@ -7,10 +7,11 @@ import re
 
 
 def comput(res):
+
     # 乘除法操作
     while True:
-        if re.search('\d+\.?\d*[\*\/]\d+\.?\d*', res):
-            result = re.search('\d+\.?\d*[\*\/]\d+\.?\d*', res).group()
+        if re.search('\d+\.?\d*[\*\/][\-]?\d+\.?\d*', res):
+            result = re.search('\d+\.?\d*[\*\/][\-]?\d+\.?\d*', res).group()
             if len(result.split('*')) > 1:
                 n1, n2 = result.split('*')
                 value = float(n1) * float(n2)
@@ -18,11 +19,10 @@ def comput(res):
                 n1, n2 = result.split('/')
                 value = float(n1) / float(n2)
 
-            before, after = re.split('\d+\.?\d*[\*\/]\d+\.?\d*', res, 1)
+            before, after = re.split('\d+\.?\d*[\*\/][\-]?\d+\.?\d*', res, 1)
             res = '%s%s%s' % (before, value, after)
         else:
             break
-
     # 加减法操作
     while True:
         res = re.sub('\+\+', '-', res)
@@ -43,6 +43,7 @@ def comput(res):
             before, after = re.split('[\-\+]?\d+\.?\d*[\+\-]\d+\.?\d*', res, 1)
             res = '%s%s%s' % (before, value, after)
         else:
+
             break
     return res
 
