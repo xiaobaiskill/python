@@ -94,8 +94,10 @@ if __name__ == '__main__':
     # expression2 = '2+3*(9/3)'
     # expression = expression2.replace(' ','')
 
-    expression3 = '-2+3'
-    expression = expression3.replace(' ','')
-
-    print(exec_computer(expression))
-    print('eval:%s'%eval(expression))
+    # expression3 = '-2+3'
+    # expression = expression3.replace(' ','')
+    while True:
+        expression = input('expression:').strip()
+        expression = expression.replace(' ','')
+        print('处理结果：%s'%exec_computer(expression))
+        # print('eval:%s'%eval(expression))
