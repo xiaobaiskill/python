@@ -1,0 +1,5 @@
+2018-05-20 19:59:57 - root -DEBUG -basic:这是一个调试错误
+2018-05-20 19:59:57 - root -INFO -basic:这是一个info错误
+2018-05-20 19:59:57 - root -WARNING -basic:这是一个warining错误
+2018-05-20 19:59:57 - root -ERROR -basic:这是一个error错误
+2018-05-20 19:59:57 - root -CRITICAL -basic:这是一个critical错误

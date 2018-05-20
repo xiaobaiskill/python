@@ -6,5 +6,3 @@ import re
 
 test = '+-dsad-+dsa--dd++'
 print(re.sub('\+\-','-',test))
-
-print(test.rsplit('-',1))
