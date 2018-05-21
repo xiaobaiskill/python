@@ -1,0 +1,6 @@
+random.random()      # (0,1)     0-1 之间取不到0和1
+random.randint(2,5)   # [2,5]    取2与5之间的整数
+random.choice([1,2,['jmz','ggf'],'aa'])  # 在 [1,2,['jmz','ggf'],'aa'] 列表 中随机取一个返回
+random.sample([1,2,['jmz','ggf'],'aa'],2)  # 在 [1,2,['jmz','ggf'],'aa'] 列表中 随机取2个组成新的列表
+random.shuffle([1,2,['jmz','ggf'],'aa'])  # 将列表的下标打乱。
+random.uniform(4,6)        # （4,6） 取大于4小于6的小数

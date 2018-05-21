@@ -1,0 +1,18 @@
+_compile(pattern, flags)           # 匹配正则
+
+search(pattern,[string,],flags=0)  ===> _compile(pattern, flags).search(string)
+    # 查找符合正则规则的pattern的string,
+    # 存在返回 匹配对象，不存在返回None
+re.search(pattern,string).group()  # 返回第一个匹配到的结果，没有匹配则报错
+
+split(pattern,string,maxsplit=0)   # 以pattern 分割 string,并确认分割maxsplit份。默认分割全部，返回分割后的新列表
+
+sub(pattern,repl,string)      # 在string 将匹配(pattern)到的内容替换成repl 返回替换后的结果
+
+findall(pattern,string)    # 在 string 在 匹配到所有的pattern ，返回 列表
+
+match(pattern,string)      # 在string的起始位置开始匹配pattern，存在返回对象，不存在，返回None
+re.match(pattern,string).group(1)   # 返回匹配到的下标为1的结果，下标为0则为本身
+
+
+

@@ -6,3 +6,4 @@ import re
 
 test = '+-dsad-+dsa--dd++'
 print(re.sub('\+\-','-',test))
+# -dsad-+dsa--dd++
