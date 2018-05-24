@@ -2,13 +2,14 @@
 # -*- coding:utf-8 -*-
 # Author Jmz
 import os,sys
-from core import main
+from bin import main
+
 sys.path.append(os.path.dirname(__file__))
 
 view_obj = {
-    '1':main.student
-    ,'2':main.teacher
-    ,'3':main.manager
+    '1': main.student
+    ,'2': main.teacher
+    ,'3': main.manager
 }
 
 while True:

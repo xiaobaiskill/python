@@ -11,6 +11,7 @@ class student:
         '''
             学员注册
         '''
+
         pass
     def pay_edu(self):
         '''

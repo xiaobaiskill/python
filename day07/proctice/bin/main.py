@@ -4,7 +4,7 @@
 
 
 def student():
-    from interface import student
+    from core import student
     student_obj = student.student()
     student_view= {
         '1':student_obj.register
@@ -29,7 +29,7 @@ q.  返回
 
 
 def teacher():
-    from interface import teacher
+    from core import teacher
     teacher_obj = teacher.teacher()
     teacher_view = {
         '1':teacher_obj.record_in_class
@@ -52,17 +52,17 @@ def teacher():
             teacher_view[select]()
 
 def manager():
-    from interface import school
-    from interface import course
-    from interface import teacher
+    from core import school
+    from core import teacher
+    from core import student
     school_obj = school.school()
-    course_obj = course.course()
     teacher_obj = teacher.teacher()
-
+    student_obj =student.student()
     manager_view = {
         '1': school_obj.index
         ,'2':teacher_obj.create_teacher
-        ,'3':course_obj.create_course
+        ,'3':school_obj.create_course
+        ,'4':student_obj.register
     }
     while True:
         print('''
@@ -70,6 +70,7 @@ def manager():
 1、校区管理
 2、创建讲师
 3、创建课程
+4、创建学员
 q、返回
             ''')
         select = input('>>>').strip()

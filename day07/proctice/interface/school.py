@@ -1,39 +1,40 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
 # Author Jmz
-
+from db import db_handle
 
 class school:
     def __init__(self):
         pass
-    def index(self):
+    def create_school(self,name,addr):
+        data = {'school_name':name,'addr':addr,'action':1}
+        res = db_handle.add('school',data)
+        if res:
+            return True,'添加成功'
+        else:
+            return False,'添加失败'
+
+    def cat_school(self):
         '''
-        教室管理页面
+        查找全部的学校信息
         :return:
         '''
-        school_view = {
-            '1':self.create_school
-            ,'2':self.create_class
-        }
-        while True:
-            print('''
------欢迎进入学校管理页面            
-1、创建校区
-2、创建班级            
-q、返回
-            ''')
-            select = input('>>>').strip()
-            if select =='q':
-                return None
-            elif select in school_view:
-                school_view[select]()
+        return db_handle.select('school')
 
-    def create_school(self):
-
-        pass
-    def create_class(self):
+    def cat_school_id(self,id):
         '''
-        创建班级
+        查询下标ID的school 信息
+        :param id:
         :return:
         '''
-        pass
+        data = db_handle.select('school')
+        return data[int(id)]
+
+    def create_class(self,class_name,course_id,teacher_id):
+        data = {'class_name':class_name,'course_id':course_id,'teacher_id':teacher_id}
+        res = db_handle.add('class',data)
+        if res:
+            return True,'班级添加成功'
+        else:
+            return False,'班级添加失败'
+
