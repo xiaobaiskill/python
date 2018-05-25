@@ -8,7 +8,7 @@ def add(name,data):
     '''
     保存数据
     :param name:
-    :param date:
+    :param date: {}
     :param table:
     :return:
     '''
@@ -19,6 +19,17 @@ def add(name,data):
     else:
         data = [data]
     with open('%s/%s.pick'%(DB_DIR,name),'wb') as f:
+        pickle.dump(data,f)
+    return True
+
+def save(name,data):
+    '''
+    修改后直接保存
+    :param name:
+    :param data:
+    :return:
+    '''
+    with open('%s/%s.pick' % (DB_DIR, name), 'wb') as f:
         pickle.dump(data,f)
     return True
 

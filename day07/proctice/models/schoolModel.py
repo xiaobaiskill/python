@@ -3,7 +3,7 @@
 # Author Jmz
 from db import db_handle
 
-class school:
+class schoolModel:
     def __init__(self):
         pass
     def create_school(self,name,addr):
@@ -28,7 +28,8 @@ class school:
         :return:
         '''
         data = db_handle.select('school')
-        return data[int(id)]
+        if data:
+            return data[int(id)]
 
     def create_class(self,class_name,course_id,teacher_id):
         data = {'class_name':class_name,'course_id':course_id,'teacher_id':teacher_id}
