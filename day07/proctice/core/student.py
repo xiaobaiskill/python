@@ -48,14 +48,14 @@ class student:
     def student_handle(self):
         student_view = {
         '1':self.pay_edu
-        ,'2':self.record
+        # ,'2':self.record # 2.  查看上课记录
         ,'3':self.cat_score
         }
         while True:
             print('''
     ----- 欢迎进入学生页面
         1.  交学费
-        2.  查看上课记录
+        
         3.  查看作业成绩
         q.  返回
             ''')

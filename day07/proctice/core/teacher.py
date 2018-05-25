@@ -43,9 +43,9 @@ class teacher:
         '''
         class_manage = {
         '1':self.cat_student
-        ,'2':self.record_in_class
+        # ,'2':self.record_in_class #2.  创建学员上课记录
         ,'3':self.make_score
-        ,'4':self.cat_record_in_class
+        ,'4':self.cat_record_in_class #4.  查看学员上课记录
         ,'5':self.cat_score
         }
 
@@ -53,9 +53,9 @@ class teacher:
             print('''
  ------欢迎来到班级管理------
     1.  查看学生
-    2.  创建学员上课记录
+    
     3.  创建学员成绩
-    4.  查看学员上课记录
+    
     5.  查看学员成绩
     q.  返回
             ''')
