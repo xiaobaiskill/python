@@ -47,4 +47,4 @@ def select(name):
     
     
 if __name__ == '__main__':
-    print(select('course'))
+    print(select('class'))

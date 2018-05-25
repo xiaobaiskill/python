@@ -6,11 +6,13 @@ from models.schoolModel import schoolModel
 from models.courseModel import courseModel
 from models.studentModel import studentModel
 from models.scoreModel import scoreModel
+from models.classModel import classModel
 
 schoolModel_obj = schoolModel()
 courseModel_obj = courseModel()
 studentModel_obj = studentModel()
 scoreModel_obj =scoreModel()
+classModel_obj =classModel()
 
 class student:
     def __init__(self):
@@ -19,17 +21,21 @@ class student:
         '''
             学员注册
         '''
-        class_data = courseModel_obj.cat_course()
+        class_data = classModel_obj.cat_class()
         if class_data:
-            for i, course_info in enumerate(class_data):
-                print('id：%s'%i, course_info)
+            for i, class_info in enumerate(class_data):
+                print('%s   地址：%s，校名：%s,讲师：%s,课程：%s'%(
+                    i,class_info['addr'],class_info['school_name'],class_info['teacher_name'],class_info['class_name']))
         else:
-            func.echo('请先创建学校')
+            func.echo('请先创建班级')
             return None
-        class_id = input('请选择班级id')
+        class_id = input('请选择班级id:')
         student_name = input('name:').strip()
-        res,msg = studentModel_obj.register(student_name,class_id)
-        func.echo(msg)
+        if class_id != '' and student_name != '':
+            res,msg = studentModel_obj.register(student_name,class_id)
+            func.echo(msg)
+        else:
+            func.echo('请填写完成信息')
 
     def login(self):
         '''
@@ -77,6 +83,8 @@ class student:
                 self.student_info['class_name'],self.student_info['school_name'],self.student_info['teacher_name'],self.student_info['price']))
             pay_money = input('请输入缴费金额：').strip()
             res,msg=studentModel_obj.pay_money(self.student_info['student_name'],pay_money)
+            if res:
+                self.student_info['pay_money'] =pay_money
             func.echo(msg)
         else:
             func.echo('该学员已交过费用：%s'%self.student_info['pay_money'])
@@ -102,4 +110,4 @@ class student:
 
 if __name__ == '__main__':
     student_obj = student()
-    student_obj.login()
+    student_obj.register()

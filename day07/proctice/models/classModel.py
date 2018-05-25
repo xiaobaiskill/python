@@ -25,6 +25,7 @@ class classModel():
                 res[k].update(courseModel_obj.cat_course_id(class_info['course_id']))
         else:
             return False
+        return res
     def cat_class_id(self,id):
         res = db_handle.select('class')
         data = res[int(id)]
@@ -33,10 +34,10 @@ class classModel():
         data.update(courseModel_obj.cat_course_id(data['course_id']))
         return data
 
-    def cat_class_tearcher(self):
-        res = db_handle.select('class')
-        print(res)
-        pass
+    # def cat_class_tearcher(self):
+    #     res = db_handle.select('class')
+    #     print(res)
+    #     pass
 
 
 
