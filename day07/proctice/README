@@ -1,0 +1,36 @@
+## 程序结构:
+```
+traring/
+├──README.md
+├── conf    #配置文件
+│   └── setting.py      #配置文件
+├── common  #公共文件
+│   └── func.py         #函数处理文件
+├── bin     #程序入口
+│   └── main.py  # 主程序进入操作页面
+├── core    #主要程序逻辑都 在这个目录 里
+│   ├── school.py      #校区逻辑处理页面
+│   ├── student.py  	#学员逻辑处理页面
+│   └── teacher.py     #讲师逻辑处理页面
+├── db      #用户数据存储的地方
+│   ├── db_handle.py    #db 数据处理页面
+│   ├── class.pick      #班级数据
+│   ├── course.pick     #课程数据
+│   ├── school.pick	    #校区数据
+│   ├── score.pick      #成绩数据
+│   ├── student.pick    #学员数据
+│   └── teacher.pick    #老师数据
+├── models      #数据逻辑处理目录
+│   ├── classModel.py       #班级数据逻辑处理
+│   ├── courseModel.py      #课程数据逻辑处理
+│   ├── schoolModel.py      #学习数据逻辑处理
+│   ├── scoreModel.py	    #成绩数据逻辑处理
+│   ├── studentModel.py     #学员数据逻辑处理
+│   └── teacherModel.py     #老师数据逻辑处理
+└── index.py #入口文件
+
+
+```
+
+## 操作：
+  * python index.py

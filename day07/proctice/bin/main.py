@@ -8,17 +8,13 @@ def student():
     student_obj = student.student()
     student_view= {
         '1':student_obj.register
-        ,'2':student_obj.pay_edu
-        ,'3':student_obj.record
-        ,'4':student_obj.cat_score
+        ,'2':student_obj.login
     }
     while True:
         print('''
 -----欢迎进入学生视图-----
 1.  注册
-2.  交学费
-3.  查看上课记录
-4.  查看作业成绩
+2.  登陆
 q.  返回
     ''')
         select = input('>>>').strip()
@@ -32,18 +28,12 @@ def teacher():
     from core import teacher
     teacher_obj = teacher.teacher()
     teacher_view = {
-        '1':teacher_obj.record_in_class
-        ,'2':teacher_obj.make_score
-        ,'3':teacher_obj.cat_record_in_class
-        ,'4':teacher_obj.cat_score
+        '1': teacher_obj.class_management
     }
     while True:
         print('''
     -----欢迎进入讲师视图-----
-    1.  创建上课记录
-    2.  创建学员成绩
-    3.  查看学员上课记录
-    4.  查看学员成绩
+    1.  班级管理
     q.  返回''')
         select = input('>>>').strip()
         if select == 'q':
@@ -57,7 +47,7 @@ def manager():
     from core import student
     school_obj = school.school()
     teacher_obj = teacher.teacher()
-    student_obj =student.student()
+    student_obj = student.student()
     manager_view = {
         '1': school_obj.index
         ,'2':teacher_obj.create_teacher
