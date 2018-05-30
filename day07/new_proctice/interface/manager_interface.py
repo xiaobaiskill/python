@@ -19,12 +19,9 @@ def login(name,pwd):
     else:
         return False,'用户名或密码错误'
 
-def create_school(name,school_name,school_addr):
 
-    pass
 
-def create_teacher():
-    pass
+
 
 def create_course():
     pass
