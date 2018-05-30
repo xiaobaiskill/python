@@ -7,9 +7,9 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from core import src
 
 start_view = {
-    '1':src.manager,
-    '2':src.teacher,
-    '3':src.student
+    '1':src.manager_run,
+    '2':src.teacher_run,
+    '3':src.student_run
 }
 
 def run():

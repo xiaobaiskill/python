@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 # Author Jmz
 
-def manager():
+def manager_run():
     from core import manager
     manager_view = {
         '1':manager.register,
@@ -28,7 +28,7 @@ def manager():
 
 
 
-def teacher():
+def teacher_run():
     from core import teacher
     teacher_view = {
         '1':teacher.login,

@@ -1,29 +1,30 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 # Author Jmz
-from lib import common
 
+from db import models
 
 
 def register(name,pwd):
-    '''
-    管理员注册
-    :param name:
-    :param pwd:
-    :return:
-    '''
-    name =input('please input your name>').strip()
-    pwd = input('please input your passwd>').strip()
-    confirm_pwd = input('please input your confire passwd').strip()
-    if name and pwd and confirm_pwd:
-        if pwd == confirm_pwd:
-            pass
-        else:
-            common.echo('两次密码输入不一致')
+    if not models.manager.get_info_by_name(name):
+        models.manager(name,pwd)
+        return True,'管理用户注册成功'
     else:
-        common.echo('用户名密码不能为空')
+        return False,'管理用户已存在'
+
+def login(name,pwd):
+    data = models.manager.get_info_by_name(name)
+    if data:
+        if data.pwd == pwd: return True,'登陆成功'
+    else:
+        return False,'用户名或密码错误'
+
+def create_school(name,school_name,school_addr):
 
     pass
 
-def login(name,pwd):
+def create_teacher():
+    pass
+
+def create_course():
     pass
