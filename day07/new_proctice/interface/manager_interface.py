@@ -16,8 +16,7 @@ def login(name,pwd):
     data = models.manager.get_info_by_name(name)
     if data:
         if data.pwd == pwd: return True,'登陆成功'
-    else:
-        return False,'用户名或密码错误'
+    return False,'用户名或密码错误'
 
 
 

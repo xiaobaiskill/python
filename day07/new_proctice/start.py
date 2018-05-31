@@ -23,7 +23,7 @@ def run():
         ''')
         chooise = input('>>>').strip()
         if chooise == 'q':break
-        if chooise.isdigit() and int(chooise) <len(start_view):
+        if chooise in start_view:
             start_view[chooise]()
 
 

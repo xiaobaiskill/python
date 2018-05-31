@@ -98,15 +98,16 @@ def create_teacher():
             print('%-30s%s'%(k,name))
         chooise_school = input('please input school number >').strip()
         if chooise_school.isdigit() and int(chooise_school) < len(school_data):
-            school_name = school_data[chooise_school]
+            school_name = school_data[int(chooise_school)]
             while True:
                 teacher_name = input('please input teacher name >').strip()
-                if teacher_name:
-                    status,msg = teacher_interface.create_teacher(school_name,teacher_name)
+                teacher_pwd = input('please input teacher pwd >').strip()
+                if teacher_name and teacher_pwd:
+                    status,msg = teacher_interface.create_teacher(school_name,teacher_pwd,teacher_name)
                     common.echo(msg)
                     return None
                 else:
-                    common.echo('请正确填写老师姓名')
+                    common.echo('请正确填写老师姓名,密码')
         else:
             common.echo('选择信息有误,重新选择')
 
@@ -118,12 +119,12 @@ def create_course():
     '''
     school_list = school_interface.get_all_school()
     while True:
-        print('%-20s%s' % ('id','school_name'))
+        print('%-20s%s' % ('id','校区名称'))
         for k,name in enumerate(school_list):
             print('%-20s%s'%(k,name))
         chooise_teacher = input('please input school id>>>').strip()
         if chooise_teacher.isdigit() and int(chooise_teacher) <len(school_list):
-            school_name = school_list[chooise_teacher]
+            school_name = school_list[int(chooise_teacher)]
             while True:
                 course_name = input('please course name >').strip()
                 if course_name:

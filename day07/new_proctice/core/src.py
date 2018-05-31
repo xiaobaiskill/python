@@ -20,9 +20,11 @@ def manager_run():
     3、创建校区
     4、创建讲师
     5、创建课程
+    q、返回
         ''')
         chooise = input('>>>').strip()
-        if chooise.isdigit() and int(chooise) < len(manager_view):
+        if chooise == 'q':break
+        if chooise in manager_view:
             manager_view[chooise]()
 
 
@@ -50,7 +52,7 @@ def teacher_run():
         ''')
         chooise = input('>>>').strip()
         if chooise =='q':break
-        if chooise.isdigit() and int(chooise) < len(teacher_view):
+        if chooise in teacher_view:
             teacher_view[chooise]()
 
 
@@ -78,6 +80,6 @@ def student_run():
 ''')
         chooise= input('>>>').strip()
         if chooise =='q':break
-        if chooise.isdigit() and int(chooise) < len(student_view):
+        if chooise in student_view:
             student_view[chooise]()
 
