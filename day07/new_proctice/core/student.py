@@ -78,6 +78,7 @@ def school_chooise():
                 school_name = school_list[int(chooise_school)]
                 status,msg = student_interface.school_chooise(student_data['name'],school_name)
                 common.echo(msg)
+                break
         common.echo('请输入正确的校区id')
 
 @auth
@@ -95,19 +96,20 @@ def course_chooise():
                 for k,name in enumerate(course_list):
                     print('%-20s%s'%(k,name))
                 chooise_course = input('please chooise your course id >').strip()
+                if chooise_course =='q':break
                 if chooise_course and chooise_course.isdigit() and int(chooise_course) <len(course_list):
                     course_name = course_list[int(chooise_course)]
                     status,msg = student_interface.chooise_course(student_data['name'],course_name)
                     common.echo(msg)
                     if status:
                         return None
-            else:
-                common.echo('请输入正确的指令')
+                else:
+                    common.echo('请输入正确的指令')
         else:
             common.echo('暂无课程可选')
     else:
         common.echo('请先选择校区')
-    pass
+
 
 @auth
 def cat_score():

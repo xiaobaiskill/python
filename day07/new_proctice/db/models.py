@@ -82,7 +82,7 @@ class student(base):
         self.save()
 
     def add_school(self,school_name):
-        if self.school_name:
+        if not self.school_name:
             self.school_name = school_name
             return self.save()
         else:
@@ -105,4 +105,4 @@ class student(base):
 
 
 if __name__ == '__main__':
-    print(manager.get_info_by_name('jjj'))
+    print(student.get_info_by_name('jmz'))

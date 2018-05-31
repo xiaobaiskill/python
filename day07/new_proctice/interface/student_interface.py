@@ -24,10 +24,11 @@ def login(name,pwd):
     :return:
     '''
     student_data = models.student.get_info_by_name(name)
-    if student_data.pwd == pwd:
-        return True,'登录成功'
-    else:
-        return False,'用户名或密码不一致'
+    if student_data:
+        if student_data:
+            if student_data.pwd == pwd:
+                return True,'登录成功'
+    return False,'用户名或密码不一致'
 
 def school_chooise(name,school_name):
     '''
@@ -36,7 +37,7 @@ def school_chooise(name,school_name):
     :param school_name:
     :return:
     '''
-    student_info = models.student.get_info_by_name()
+    student_info = models.student.get_info_by_name(name)
     if student_info:
         if student_info.add_school(school_name):
             return True,'校区选择成功'

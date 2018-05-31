@@ -36,7 +36,7 @@ def teacher_run():
         '1':teacher.login,
         '2':teacher.cat_course,
         '3':teacher.chooise_course,
-        '4':teacher.cat_course,
+        '4':teacher.cat_course_student,
         '5':teacher.save_student_score
     }
 

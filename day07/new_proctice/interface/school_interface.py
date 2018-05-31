@@ -22,8 +22,8 @@ def get_school_course(school_name):
     :return:
     '''
     schoool_info = models.school.get_info_by_name(school_name)
-    if school_name:
-        return school_name.course_list
+    if schoool_info:
+        return schoool_info.course_list
 
 
 def create_school(school_name,school_addr):

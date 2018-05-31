@@ -10,20 +10,21 @@ teacher_data = {}
 
 def auth(func):
     def wrapper(*args,**kwargs):
-        if teacher_data['name']:
+        if 'name' in teacher_data:
             return func(*args,**kwargs)
         else:
-            name = input('please input your name >').strip()
-            pwd = input('please input your passwd >').strip()
-            if name and pwd:
-                status, msg = teacher_interface.login(name, pwd)
-                common.echo(msg)
-                if status:
-                    teacher_data['name'] = name
+            while True:
+                name = input('please input your name >').strip()
+                pwd = input('please input your passwd >').strip()
+                if name and pwd:
+                    status, msg = teacher_interface.login(name, pwd)
+                    common.echo(msg)
+                    if status:
+                        teacher_data['name'] = name
+                        return func(*args,**kwargs)
+                else:
                     common.echo('请填写完整信息')
-            else:
-                common.echo('请填写完整信息')
-
+    return wrapper
 
 
 def login():

@@ -78,12 +78,12 @@ def add_course(name,course_name):
     '''
     course_info = models.course.get_info_by_name(course_name)
     teacher_info = models.teacher.get_info_by_name(name)
-    if not course_name:return False,'课程不存在'
+    if not course_info:return False,'课程不存在'
     if not teacher_info:return False,'讲师不存在'
     if course_info.teacher_name:return False,'课程已存在讲师'
     status,msg = teacher_info.add_course(course_name)
     if status:
-        course_name.add_teacher(name)
+        course_info.add_teacher(name)
     return status,msg
 
 
