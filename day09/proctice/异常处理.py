@@ -122,6 +122,10 @@
 
 
 
+
+
+
+
 # 3.2.2 主动异常处理
 # try:
 #     raise IndexError('就要这个异常')
@@ -137,5 +141,17 @@
 #     raise AssertionError('1 != 2')
 
 
+# 3.2.4 自定义类
+# 要继承 BaseException
+class MyError(BaseException):
+    def __init__(self,msg):
+        super().__init__()
+        self.msg = msg
+    def __str__(self):
+        return '<%s>'%self.msg
+try:
+    raise MyError('hahah')
+except MyError as e:
+    print(e)
 
 

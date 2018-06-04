@@ -6,7 +6,7 @@ import json,struct
 
 client = socket(AF_INET,SOCK_STREAM)
 
-client.connect_ex(('127.0.0.1',8082))
+client.connect_ex(('127.0.0.1',8083))
 
 while True:
     msg = input('>>>').strip()
