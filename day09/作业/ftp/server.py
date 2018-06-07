@@ -8,11 +8,11 @@ from lib import common
 class MyFtpServer(socketserver.BaseRequestHandler):
     coding = 'utf-8'
     def handle(self):
-        print(self.request)
 
         # 初次接收 用户数据
         data_init = self.request.recv(1024)
         data_base = data_init.decode(self.coding)
+        data_base = json.loads(data_base)
         self.user = data_base['user']
         self.home_dir = os.path.normpath(os.path.join(settings.FTP_DIR,data_base['home_dir']))  # 用户家目录
         self.current_page = self.home_dir           # 当前访问页面
@@ -25,9 +25,11 @@ class MyFtpServer(socketserver.BaseRequestHandler):
                     func = getattr(self,header_data['cmd'])
                     func(header_data)
                 else:
-                    pass
+                    continue
             except Exception as e:
+                print(e)
                 self.request.close()
+                break
     def header_send(self,header_data):
         '''
         统一 header 数据发送
@@ -47,8 +49,15 @@ class MyFtpServer(socketserver.BaseRequestHandler):
         :return:
         '''
         header_size = self.request.recv(4)
-        header_len = struct.unpack('i',header_size)
-        header_data_json = self.request.recv(header_len)
+        header_len = struct.unpack('i',header_size)[0]
+        start_size = 0
+        header_data_json = b''
+        dec_size = header_len
+        while start_size < header_len:
+            header_data_json += self.request.recv(dec_size)
+            start_size = len(header_data_json)
+            dec_size = header_len - start_size
+
         header_data = json.loads(header_data_json.decode(self.coding))
         return header_data
 
@@ -58,22 +67,28 @@ class MyFtpServer(socketserver.BaseRequestHandler):
         :return:
         '''
         if header_data['path'].startswith('/'):
-            new_path = os.path.normpath(os.path.join(self.home_dir,header_data['path'].ltrim('/')))
+            new_path = os.path.normpath(os.path.join(self.home_dir,header_data['path'].lstrip('/')))
         else:
             new_path = os.path.normpath(os.path.join(self.current_page, header_data['path']))
 
-        if os.path.isdir(new_path):
+
+        if os.path.exists(new_path) and os.path.isdir(new_path):
             if new_path.startswith(self.home_dir) :
                 self.current_page = new_path
-                self.request.send(b'None')
-            if self.home_dir.startswith(new_path):
-                self.request.send(b'None')
-            return None
-        self.request.send(b'bash cd %s: No such file or directory'%header_data['path'])
+                self.header_send({'status':True})
+                return None
 
-    def pwd(self):
+            if self.home_dir.startswith(new_path):
+                self.current_page = self.home_dir
+                self.header_send({'status':True})
+                return None
+            
+        error = 'bash cd %s: No such file or directory'%header_data['path']
+        self.header_send({'status':False,'data_size':len(error)})
+        self.request.send(error.encode(self.coding))
+
+    def pwd(self,header_data):
         self.request.send(self.current_page.encode(self.coding))
-        pass
 
     def put(self, header_data):
         '''
@@ -87,9 +102,9 @@ class MyFtpServer(socketserver.BaseRequestHandler):
         else:
             self.header_send({'status': True})
             start_size = 0
-            with open(os.path.join(self.current_page,os.path.basename(header_data['file']),'wb')) as f:
+            with open(os.path.join(self.current_page,os.path.basename(header_data['file'])),'wb') as f:
                 while start_size < header_data['file_size']:
-                    data = self.request.send(2014)
+                    data = self.request.recv(1024)
                     f.write(data)
                     start_size+=len(data)
 
@@ -101,7 +116,7 @@ class MyFtpServer(socketserver.BaseRequestHandler):
         current_file = os.path.join(self.current_page,header_data['file'])
         if os.path.isfile(current_file):
             self.header_send({'status': True,'file_size':os.path.getsize(current_file)})
-            with open(header_data['file'],'rb') as f:
+            with open(current_file,'rb') as f:
                 for line in f:
                     self.request.send(line)
         else:
@@ -111,5 +126,5 @@ class MyFtpServer(socketserver.BaseRequestHandler):
 
 
 if __name__ == '__main__':
-    server = socketserver.ThreadingTCPServer(('127.0.0.1',8087),MyFtpServer)
+    server = socketserver.ThreadingTCPServer(('127.0.0.1',8081),MyFtpServer)
     server.serve_forever()

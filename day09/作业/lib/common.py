@@ -28,7 +28,20 @@ def getdirsize(dir):
         print(size)
     return size
 
+def process_bar(percent,width=50):
+    format = ('%%-%ss'%width)%(int(percent*width)*'#')
+    print('\r[%s] %s%%'%(format,int(percent*100)),end='')
 
+
+if __name__ == '__main__':
+    import time
+
+    start_size = 0
+    total_size = 1239400
+    while start_size < total_size:
+        start_size+=1023
+        process_bar(start_size/total_size,50)
+        time.sleep(0.01)
 
 
 

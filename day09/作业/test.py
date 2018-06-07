@@ -38,7 +38,7 @@ import os
 # getsize 只能获取文件的数据大小
 # print(os.path.getsize(__file__))  #bytes
 
-base_dir = os.path.normpath( os.path.join(os.path.abspath(__file__),os.pardir))
+# base_dir = os.path.normpath( os.path.join(os.path.abspath(__file__),os.pardir))
 
 # data1 =os.path.getsize(os.path.join(base_dir,'start.py'))
 # data2 =os.path.getsize(os.path.join(base_dir,'test.py'))
@@ -64,3 +64,22 @@ base_dir = os.path.normpath( os.path.join(os.path.abspath(__file__),os.pardir))
 # with open('test/test.txt','w',encoding='utf-8') as f:
 #     f.write('dsada\n')
 #     f.write('dsada\n')
+
+
+
+
+#
+# class test(object):
+#     def dd(self):
+#         print('dd')
+#     def run(self):
+#         func = getattr(self,'dd')
+#         func()
+#
+# test1 = test()
+# test1.run()
+
+
+
+# dir = os.path.normpath(os.path.join('/root/test','/'.lstrip('/')))
+# print(dir)

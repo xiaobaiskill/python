@@ -3,10 +3,10 @@
 # Author Jmz
 import socket
 import json,struct,os
-from lib.common import echo
+from lib.common import echo,process_bar
 
 class client_ftp(object):
-    ip_addr = ('127.0.0.1',8087)
+    ip_addr = ('127.0.0.1',8081)
     type =  socket.SOCK_STREAM
     family = socket.AF_INET
     coding = 'utf-8'
@@ -60,6 +60,7 @@ class client_ftp(object):
                 else:
                     echo('命令不存在')
             except Exception as e:
+                print('进程关闭')
                 self._close()
 
     def header_send(self,header_data):
@@ -80,8 +81,15 @@ class client_ftp(object):
         :return:
         '''
         header_size = self.client.recv(4)
-        header_len = struct.unpack('i',header_size)
-        header_data_json = self.client.recv(header_len)
+        header_len = struct.unpack('i',header_size)[0]
+        start_size = 0
+        header_data_json = b''
+        dec_size = header_len
+        while start_size < header_len:
+            header_data_json += self.client.recv(dec_size)
+            start_size = len(header_data_json)
+            dec_size = header_len - start_size
+
         header_data = json.loads(header_data_json.decode(self.coding))
         return header_data
 
@@ -89,9 +97,17 @@ class client_ftp(object):
     def cd(self,cmd):
         header_data = {'cmd':cmd[0],'path':cmd[1]}
         self.header_send(header_data)
-        res = self.client.recv(1024)
-        if not res:return None
-        print(res.decode(self.coding))
+        header_data = self.parse_header()
+        if not header_data['status']:
+            start_size = 0
+            data = b''
+            while start_size < header_data['data_size']:
+                data += self.client.recv(2024)
+                start_size += len(data)
+            print(data.decode(self.coding))
+
+
+
 
     def pwd(self,cmd):
         '''
@@ -115,10 +131,15 @@ class client_ftp(object):
             header_data = {'cmd': cmd[0], 'file': cmd[1], 'file_size':os.path.getsize(cmd[1])}
             self.header_send(header_data)
             res_data = self.parse_header()
+            start_size = 0
             if res_data['status']:
                 with open(header_data['file'],'rb') as f:
                     for line in f:
                         self.client.send(line)
+                        start_size += len(line)
+                        process_bar(start_size/header_data['file_size'])
+                print()
+
             else:
                 echo(res_data['msg'])
         else:
@@ -149,10 +170,12 @@ class client_ftp(object):
                     data = self.client.recv(1024)
                     f.write(data)
                     start_size += len(data)
+                    process_bar(start_size / res_data['file_size'])
+                print()
         else:
             echo(res_data['msg'])
 
 
 if __name__ == '__main__':
-    client=client_ftp({'user':'jmz','home_dir':'jmz','data_size':'100'})
+    client=client_ftp({'user':'jmz','home_dir':'jmz','data_size':'100000'})
     client.run()

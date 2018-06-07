@@ -29,7 +29,7 @@ admin_view ={
 
 def admin_run():
     while True:
-        print(''''
+        print('''
 -----欢迎来到管理界面----
     1、登陆
     2、添加用户
