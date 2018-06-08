@@ -83,3 +83,13 @@ import os
 
 # dir = os.path.normpath(os.path.join('/root/test','/'.lstrip('/')))
 # print(dir)
+
+
+g = os.listdir('D:/w_python/python/day09/作业/test')
+print(len(g))
+# print(files)
+
+# file_and_dir=next(g)
+# print(file_and_dir)
+# print(file_and_dir[1])
+# print(file_and_dir[2],type(file_and_dir[2]))

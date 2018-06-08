@@ -17,6 +17,8 @@ def add_user(user,pwd,data_size,home_dir):
     '''
     if db_handle.select(user,'user'):
         return False,'用户已存在，请勿重复操作'
+    if not (os.path.exists(home_dir) and os.path.isdir(home_dir)):
+        return False,'无效的家目录'
 
     data = {}
     data['user'] = user
@@ -25,9 +27,6 @@ def add_user(user,pwd,data_size,home_dir):
     data['home_dir'] = home_dir
     res = db_handle.save(data,'user')
     if res:
-        ftp_user_dir = os.path.join(settings.FTP_DIR,user)
-        if not os.path.isdir(ftp_user_dir):
-            os.mkdir(ftp_user_dir)
         return True,'添加成功'
     else:
         return False,'添加失败'

@@ -14,7 +14,7 @@ class MyFtpServer(socketserver.BaseRequestHandler):
         data_base = data_init.decode(self.coding)
         data_base = json.loads(data_base)
         self.user = data_base['user']
-        self.home_dir = os.path.normpath(os.path.join(settings.FTP_DIR,data_base['home_dir']))  # 用户家目录
+        self.home_dir = os.path.normpath(data_base['home_dir'])  # 用户家目录
         self.current_page = self.home_dir           # 当前访问页面
         self.data_size = data_base['data_size']
 
@@ -30,6 +30,7 @@ class MyFtpServer(socketserver.BaseRequestHandler):
                 print(e)
                 self.request.close()
                 break
+
     def header_send(self,header_data):
         '''
         统一 header 数据发送
@@ -90,6 +91,18 @@ class MyFtpServer(socketserver.BaseRequestHandler):
     def pwd(self,header_data):
         self.request.send(self.current_page.encode(self.coding))
 
+    def ls(self,header_data):
+        file_and_dir = os.listdir(self.current_page)
+        if file_and_dir:
+            file_and_dir_json = json.dumps(file_and_dir)
+            header_data = {'status':True,'data_size':len(file_and_dir_json)}
+            self.header_send(header_data)
+            self.request.send(file_and_dir_json.encode(self.coding))
+        else:
+            header_data={'status':False}
+            self.header_send(header_data)
+
+        pass
     def put(self, header_data):
         '''
         服务端接受客户端文件

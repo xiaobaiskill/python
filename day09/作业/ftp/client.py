@@ -106,7 +106,16 @@ class client_ftp(object):
                 start_size += len(data)
             print(data.decode(self.coding))
 
-
+    def ls(self,cmd):
+        header_data ={'cmd':cmd[0]}
+        self.header_send(header_data)
+        header_data = self.parse_header()
+        if header_data['status']:
+            data_json = self.client.recv(header_data['data_size'])
+            data = json.loads(data_json)
+            for info in data:
+                print(info,end=' ')
+            print()
 
 
     def pwd(self,cmd):
@@ -177,5 +186,5 @@ class client_ftp(object):
 
 
 if __name__ == '__main__':
-    client=client_ftp({'user':'jmz','home_dir':'jmz','data_size':'100000'})
+    client=client_ftp({'user':'jmz','home_dir':r'D:\w_python\python\day09\作业\test','data_size':'100000'})
     client.run()

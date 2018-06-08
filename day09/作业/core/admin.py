@@ -59,7 +59,7 @@ def add_user():
         pwd_again = input('再次确认密码>>>').strip()
         if user and pwd and pwd == pwd_again:
             data_size = input('用户空间大小（单位：bytes）>>>').strip()
-            home_dir = input('家目录（在ftp_user下,如jmz）>>>').strip()
+            home_dir = input('家目录（绝对路径）>>>').strip()
             if data_size and home_dir:
                 res,msg = user_interface.add_user(user,pwd,data_size,home_dir)
                 echo(msg)
