@@ -7,5 +7,9 @@ data = {
     'age':22,
     'sex':'1'
 }
-for k in data:
-    print(k)
+# for k in data:
+#     print(k)
+
+
+data['jmz'] = {'kk':'lll'}
+print(data['jmz']['kk'])
