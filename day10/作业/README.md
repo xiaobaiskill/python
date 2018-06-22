@@ -10,10 +10,13 @@
 ```
 再此之前你可先执行 db/db_handle.py， 添加主机。（主机管理操作亦可）
 ```
+
 * 命令行窗口执行命令如下
-** 1、batch_run  -h h1,h2,h3   -g web_clusters,db_servers  -cmd  "df -h"　
-** 2、batch_scp   -h h1,h2,h3   -g web_clusters,db_servers  -action put  -local test.py  -remote /tmp/test.py
-`文件的上传和下载需指定到文件`
+    * 1、batch_run  -h h1,h2,h3   -g web_clusters,db_servers  -cmd  "df -h"　
+    * 2、batch_scp   -h h1,h2,h3   -g web_clusters,db_servers  -action put  -local test.py  -remote /tmp/test.py
+```
+文件的上传和下载需指定到文件
+``` 
 
 
 ## 另外说明
