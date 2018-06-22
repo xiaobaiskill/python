@@ -15,11 +15,14 @@ def add():
     echo(msg)
 
 def cat():
-    data = hosts_interface.cat_all()
-    for k in data:
-        echo(k.center(50,'-'))
-        for kk in data[k]:
-            echo('%15s : %s'%(kk,data[k][kk]))
+    try:
+        data = hosts_interface.cat_all()
+        for k in data:
+            echo(k.center(50,'-'))
+            for kk in data[k]:
+                echo('%15s : %s'%(kk,data[k][kk]))
+    except Exception:
+        echo('主机信息有误')
 
 def remove():
     name = input('您要删除的主机名>>>').strip()

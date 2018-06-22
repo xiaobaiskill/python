@@ -71,32 +71,15 @@ def remove(name,key = None):
     return True
 
 if __name__ == '__main__':
-    # print(select('jmz'))
-    # data = {
-    #     'name':'jmz111',
-    #     'ip':'192.168.33.110',
-    #     'port':22,
-    #     'username':'vagrant',
-    #     'passwd':'vagrant',
-    #     'private_key':'none'
-    # }
-    # add(data)
 
-    # data = {
-    #     'ip':'123.33.33.33',
-    #     'port':51622,
-    #     'username':'root'
-    # }
-    # save('jmz',data)
-
-
-    # remove('jmz','ip')
-
-    print(select())
-    #
-    # conf.read(settings.DB_HOSTS_FILE,encoding=settings.DB_CHAR)
-    # print(conf.sections())
-    # print(conf.options('jmz'))
-    # print(conf.get('jmz','ip'))
-
+    data = {
+        'name':'h1',
+        'ip':'192.168.33.110',
+        'port':22,
+        'username':'vagrant',
+        'passwd':'vagrant',
+        'private_key':r'D:\vagrant2\.vagrant\machines\default\virtualbox\private_key'
+    }
+    add(data)
+    # print(select())
 

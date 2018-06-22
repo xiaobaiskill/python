@@ -34,6 +34,17 @@ def cat_all():
         data[k] = info
     return data
 
+def cat_name_info(name):
+    name = name.strip()
+    for k in cat_one():
+        if k == name:
+            res = cat_one(k)
+            info = {}
+            for kk in res:
+                info[kk] = cat_one(k, kk)
+            return info
+    return None
+
 
 def remove(name,key = None):
     res = db_hanlde.remove(name,key)
