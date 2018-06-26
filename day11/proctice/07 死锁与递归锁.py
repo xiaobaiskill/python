@@ -2,12 +2,16 @@
 # -*- coding:utf-8 -*-
 # Author Jmz
 
-from threading import Thread,Lock
+from threading import Thread,Lock,RLock
 import json,os,time,random
 
-# Lock 用法，
-mutexA = Lock()
-mutexB = Lock()
+# Lock 用法，  每实力化一次就产生一把新的锁，锁直接没有关联。
+# mutexA = Lock()
+# mutexB = Lock()
+
+# 递归锁使用类， 层层递归，每加一次锁就计数+1
+mutexA = mutexB = RLock()
+
 
 
 class MyThread(Thread):
@@ -32,7 +36,7 @@ class MyThread(Thread):
         time.sleep(1)
         print('%s A锁释放'%self.name)
         mutexA.release()
-        print('%sB锁释放'%self.name)
+        print('%s B锁释放'%self.name)
         mutexB.release()
 
 if __name__ == '__main__':
@@ -72,6 +76,13 @@ Thread-2 A锁占用中
         线程1 在执行self.f1()时速度快，一下抢到了A锁B锁，但self.f2时抢到了B锁，但在抢A的过程中，被线程2抢到了。
         
         内部抢锁的过程，可能涉及到 先抢先得 的算法在里面。
+'''
+
+
+'''
+    Lock  会产生 死锁现象，
+    RLock 递归锁，计数加锁
+
 '''
 
 
