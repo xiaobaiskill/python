@@ -28,11 +28,6 @@ def save(table,name,data):
     return True
 
 
-if __name__ == '__main__':
-    # save('admin','jj',{'name':'jjj','age':123})
-    # print(select('admin','jj'))
-    pass
-
 
 
 

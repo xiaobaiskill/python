@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 # Author Jmz
+from lib.common import echo
+from interface import member_interface
 
 # 装饰器
 def auth(func):
@@ -8,7 +10,20 @@ def auth(func):
 
 
 def register():
-    pass
+    while True:
+        user = input('输入姓名：').strip()
+        passwd = input('输入密码').strip()
+        confirm_passd = input('再次确认密码').strip()
+        if passwd == confirm_passd:
+            if not passwd:
+                echo('密码不能为空')
+                continue
+            member_interface.register(user,passwd)
+
+
+        else:
+            echo('两次密码不一致')
+
 
 def login():
     pass
