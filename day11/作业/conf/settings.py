@@ -12,6 +12,7 @@ BASE_DIR = os.path.normpath(
 
 DB_DIR = '%s/db'%BASE_DIR
 
+CHAR = 'utf-8'
 
 ADMIN_DIR = '%s/admin'%DB_DIR
 
