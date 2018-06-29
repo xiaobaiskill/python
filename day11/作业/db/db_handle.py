@@ -27,7 +27,7 @@ def save(table,name,data):
         json.dump(data,f)
     return True
 
-
-
+if __name__ == '__main__':
+    pass
 
 
