@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 # Author Jmz
-import time
+import time,os
 from lib.common import echo
 from core import video
 from interface import member_interface
@@ -88,6 +88,11 @@ def download_video():
         echo('非会员用户需等待10秒广告时间')
         time.sleep(10)
     file = input('请输入视频名称》》').strip()
+    info = video_interface.find(os.path.basename(file))
+    if not info or info[0]['del'] == 1:
+        echo('视频不存在')
+        return False
+
     src_dir = input('保存视频至》》').strip()
     client_video = video.client_video()
     status,msg = client_video.get(file,src_dir)

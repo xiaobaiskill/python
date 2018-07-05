@@ -64,7 +64,9 @@ def upload_video():
         video_interface.video_push(os.path.basename(file))
 @auth
 def rm_video():
-    pass
+    file = input('请输入要删除的视频名>>').strip()
+    status,msg = video_interface.del_video(os.path.basename(file))
+    echo(msg)
 
 @auth
 def notice_push():
