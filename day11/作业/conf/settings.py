@@ -14,13 +14,15 @@ DB_DIR = '%s/db'%BASE_DIR
 
 CHAR = 'utf-8'
 
-ADMIN_DIR = '%s/admin'%DB_DIR
-
-MEMBER_DIR = '%s/member'%DB_DIR
-
-VIDEO_DIR = '%s/video'%DB_DIR
+# ADMIN_DIR = '%s/admin'%DB_DIR
+#
+# MEMBER_DIR = '%s/member'%DB_DIR
+#
+# VIDEO_DB = '%s/video'%DB_DIR
 
 VIEW_VIDEO_LOG='%s/view_video_log'%DB_DIR
+
+VIDEO_DIR = '%s/video'%BASE_DIR
 
 
 

@@ -3,7 +3,9 @@
 # Author Jmz
 '''
 语法：
-   成立1 if condition1 else 成立2 if condition2 else ... if 成立N conditionN else 不成立
+   [成立1 if condition1 else
+   成立2 if condition2 else ...
+   if 成立N conditionN else 不成立]
 '''
 
 

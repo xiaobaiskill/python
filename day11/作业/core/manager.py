@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 # Author Jmz
+import os
 from lib.common import echo
 from interface import manager_interface
+from interface import video_interface
+from core import video
 
 manager_info = {}
 
@@ -53,8 +56,12 @@ def login():
 
 @auth
 def upload_video():
-    pass
-
+    file = input('请输入上传的视频文件路径：').strip()
+    client_video = video.client_video()
+    status, msg = client_video.put(r'%s'%file)
+    echo(msg)
+    if status:
+        video_interface.video_push(os.path.basename(file))
 @auth
 def rm_video():
     pass

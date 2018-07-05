@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 # Author Jmz
+import time
 from lib.common import echo
+from core import video
 from interface import member_interface
+from interface import video_interface
 
 member_info = {}
 # 装饰器
@@ -72,11 +75,23 @@ def buy_vip():
 
 @auth
 def cat_video():
-    pass
-
+    for info in video_interface.find():
+        echo('视频：')
+        count = 0
+        if info['del'] == 0:
+            count +=1
+            echo('     %s   %s'%(count,info['file']))
 @auth
 def download_video():
-    pass
+    if member_info['level'] != 1:
+        cat_notice()
+        echo('非会员用户需等待10秒广告时间')
+        time.sleep(10)
+    file = input('请输入视频名称》》').strip()
+    src_dir = input('保存视频至》》').strip()
+    client_video = video.client_video()
+    status,msg = client_video.get(file,src_dir)
+    echo(msg)
 
 @auth
 def cat_video_log():
