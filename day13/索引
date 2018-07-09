@@ -1,0 +1,20 @@
+集合索引
+parmary key
+
+
+辅助索引
+unique
+index key
+
+
+
+外键
+forigen key(id) refencn table(字段) on delete cascal on update cascl
+
+
+
+
+
+# innoDB 一定要有一个主键，，一般id作为主键，如果没有的就会在字段中找一个没有null的唯一值字段做主键，如果也没有那就
+# 系统自创建一个（看不到的）主键，
+

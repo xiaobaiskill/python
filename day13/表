@@ -1,0 +1,32 @@
+show tables;
+
+create table t1(字段 字段类型[() 其他])
+
+show create table t1
+
+drop table t1
+
+
+
+alter
+ 增删改查
+
+
+删除表数据
+delete from t1    # 只是删除数据，没有删除自增键
+
+
+select @@global.sql_mode;
+
+set global sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+
+
+
+正则
+
+name regexp '^jin.*(g|n)'
+
+
+
+
+sql 语句 union sql 语句； 连接两条查询语句 并去重

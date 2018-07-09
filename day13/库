@@ -1,0 +1,9 @@
+show databases;
+
+create database t1;
+
+show create database t1;
+
+drop database t1
+
+alter database t1 charset utf8;
