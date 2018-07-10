@@ -55,6 +55,18 @@
 
 
 7、 查询没有报李平老师课的学生姓名
+    select student.sid,student.sname from student
+    left join score on student.sid = score.student_id
+    and  score.course_id not in
+    (
+    select cid from teacher
+    join  course on course.teacher_id = teacher.tid
+    where tname = '李平老师'
+    )
+    group by student.sid;
+
+
+
 
 
 
@@ -62,7 +74,12 @@
 
 
 
+
+
 9、 查询没有同时选修物理课程和体育课程的学生姓名
+
+
+
 
 
 10、查询挂科超过两门(包括两门)的学生姓名和班级
@@ -133,7 +150,7 @@
 
 20、查询每门课程成绩最好的前两名学生姓名
 
-    
+
 
 
 21、查询不同课程但成绩相同的学号，课程号，成绩
