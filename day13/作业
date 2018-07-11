@@ -70,14 +70,17 @@
 
 
 
-8、 查询物理课程比生物课程高的学生的学号
+8、 查询物理课程比生物课程高的学生的学号   
+    
 
 
 
 
-
-9、 查询没有同时选修物理课程和体育课程的学生姓名
-
+9、 查询没有同时选修物理课程和体育课程的学生姓名  (需测试)
+    select student.sid,student.sname from score
+    join student on score.student_id = student.sid 
+    where course_id not in (2,4)
+    group by score.student_id
 
 
 
@@ -90,7 +93,8 @@
 
 
 
-11 、查询选修了所有课程的学生姓名
+11 、查询选修了所有课程的学生姓名 (需测试)
+
 
 
 
