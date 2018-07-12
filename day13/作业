@@ -76,11 +76,11 @@
 
 
 
-9、 查询没有同时选修物理课程和体育课程的学生姓名  (需测试)
+9、 查询没有同时选修物理课程和体育课程的学生姓名
     select student.sid,student.sname from score
     join student on score.student_id = student.sid 
     where course_id not in (2,4)
-    group by score.student_id
+    group by score.student_id;
 
 
 
@@ -93,8 +93,11 @@
 
 
 
-11 、查询选修了所有课程的学生姓名 (需测试)
-
+11 、查询选修了所有课程的学生姓名
+    select student_id,sname from score
+    join student on score.student_id = student.sid
+    group by student_id
+    having count(student_id) = (select count(*) from course);
 
 
 
@@ -161,14 +164,15 @@ order by course_id asc,score desc;
 21、查询不同课程但成绩相同的学号，课程号，成绩
 
 
-22、查询没学过“叶平”老师课程的学生姓名以及选修的课程名称； (需测试)
-    select score.student_id, student.sname, course.cname from score 
-    join student score.student_id = student.sid
-    join course on score.course_id = course.cid
-    where course_id not in 
+22、查询没学过“李平”老师课程的学生姓名以及选修的课程名称； (需测试)
+    select student.sid, student.sname, group_concat(course.cname) from student
+    left join score on score.student_id = student.sid
+    left join course on score.course_id = course.cid
+    where score.course_id not in
     (
-    select * from teacher join course on teacher.tid = course.teacher_id where tname = "叶平老师"
+    select cid from course join teacher on teacher.tid = course.teacher_id where teacher.tname = "李平老师"
     )
+    group by student.sid;
 
 23、查询所有选修了学号为1的同学选修过的一门或者多门课程的同学学号和姓名；
     
