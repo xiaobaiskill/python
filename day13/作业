@@ -164,7 +164,7 @@ order by course_id asc,score desc;
 21、查询不同课程但成绩相同的学号，课程号，成绩
 
 
-22、查询没学过“李平”老师课程的学生姓名以及选修的课程名称； (需测试)
+22、查询没学过“李平”老师课程的学生姓名以及选修的课程名称；
     select student.sid, student.sname, group_concat(course.cname) from student
     left join score on score.student_id = student.sid
     left join course on score.course_id = course.cid
